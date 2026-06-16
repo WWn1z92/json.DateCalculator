@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Date Calculator</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <h1>Date Calculator</h1>
+    <p>My first website</p>
+<h2>Enter Date</h2>
+<label>date1:</label>>
+<input type="text" id="date1" placeholder="27.02.2003">
+
+<br>
+
+<label>date2:</label>>
+<input type="text" id="date2" placeholder="15.02.2026">
+<br></br>
+
+<button onclick="calculate()">Calculate</button> 
+
+<p id="result"> result. </p>
+
+  </body>
+
+  
+<script>
+async function calculate() {
+    let date1 = document.getElementById('date1').value;
+    let date2 = document.getElementById('date2').value;
+    
+    let response = await fetch('/calculate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({date1: date1, date2: date2})
+    });
+    
+    let data = await response.json();
+    document.getElementById('result').innerText = data.result;
+}
+</script>
+
+
+</html>
